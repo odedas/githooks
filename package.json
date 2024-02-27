@@ -4,13 +4,12 @@
   "description": "githooks example",
   "main": "index.js",
   "scripts": {
-    "lint": "node ./node_modules/.bin/eslint .",
-    "prepare": "husky"
+    "lint": "node ./node_modules/.bin/eslint ."
   },
   "husky": {
     "hooks": {
-      "pre-commit": "node .githooks/pre-commit.js",
-      "pre-push": "node .githooks/pre-push.js"
+      "pre-commit": "node pre-commit.js",
+      "pre-push": "node pre-push.js"
     }
   },
   "repository": {
