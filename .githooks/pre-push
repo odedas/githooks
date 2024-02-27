@@ -26,10 +26,10 @@ fi
 echo "There are changes to push."
 
 # Increase version in package.json
-npm version patch --no-git-tag-version
+newVersion=$(npm version patch --no-git-tag-version)
 
-# Update releasenotes.txt with version and commit messages
-echo "## $currentVersion ($currentDate)" >> "$releaseNotesFile"
+# Update releasenotes.txt with new version and commit messages
+echo "## $newVersion ($currentDate)" >> "$releaseNotesFile"
 echo "$commitMessages" | sed -e 's/^/- /' >> "$releaseNotesFile"
 echo "Updated $releaseNotesFile"
 
