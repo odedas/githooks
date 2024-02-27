@@ -1,0 +1,38 @@
+{
+  "name": "githooks",
+  "version": "1.0.0",
+  "description": "githooks example",
+  "main": "index.js",
+  "scripts": {
+    "lint": "node ./node_modules/.bin/eslint ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "node .githooks/pre-commit.js",
+      "pre-push": "node .githooks/pre-push.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/odedas/githooks.git"
+  },
+  "keywords": [
+    "pre-commit",
+    "pre-push",
+    "release",
+    "notes"
+  ],
+  "author": "O.A",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/odedas/githooks/issues"
+  },
+  "homepage": "https://github.com/odedas/githooks#readme",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "fs-extra": "^11.2.0",
+    "husky": "^9.0.11"
+  }
+}
