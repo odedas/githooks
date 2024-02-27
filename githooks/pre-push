@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Check for releasenotes.txt
+releaseNotesFile="releasenotes.txt"
+if [ ! -f "$releaseNotesFile" ]; then
+  touch "$releaseNotesFile"
+  echo "Created releasenotes.txt"
+fi
+
+# Increase version in package.json
+npm version patch --no-git-tag-version
+
+# Get current date
+currentDate=$(date '+%Y-%m-%d')
+
+# Get commit messages
+commitMessages=$(git log --pretty=format:"%h %s" @{u}..)
+
+# Update releasenotes.txt
+echo "## $(node -e "console.log(require('./package.json').version)") ($currentDate)" >> "$releaseNotesFile"
+echo "$commitMessages" | sed -e 's/^/- /' >> "$releaseNotesFile"
+echo "Updated $releaseNotesFile"
+
+# Exit with success
+exit 0

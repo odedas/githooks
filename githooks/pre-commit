@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Run ESLint
+echo "Running ESLint..."
+if ! npm run lint --silent; then
+  echo "ESLint check failed. Please fix the errors before committing."
+  exit 1
+fi
