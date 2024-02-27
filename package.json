@@ -1,6 +1,6 @@
 {
   "name": "githooks",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "githooks example",
   "main": "index.js",
   "scripts": {
