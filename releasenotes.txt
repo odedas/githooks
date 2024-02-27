@@ -6,3 +6,5 @@
 - 
 ## 1.0.3 (2024-02-27)
 - f6407fc add commit to push
+## 1.0.4 (2024-02-27)
+- 86064d2 new version check
