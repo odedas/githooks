@@ -7,8 +7,8 @@ if [ ! -f "$releaseNotesFile" ]; then
   echo "Created releasenotes.txt"
 fi
 
-# Increase version in package.json
-npm version patch --no-git-tag-version
+# Get current version from package.json
+currentVersion=$(node -pe "require('./package.json').version")
 
 # Get current date
 currentDate=$(date '+%Y-%m-%d')
@@ -16,10 +16,32 @@ currentDate=$(date '+%Y-%m-%d')
 # Get commit messages
 commitMessages=$(git log --pretty=format:"%h %s" @{u}..)
 
-# Update releasenotes.txt
-echo "## $(node -e "console.log(require('./package.json').version)") ($currentDate)" >> "$releaseNotesFile"
+# Check if there are changes to push
+if git diff --quiet --exit-code @{u}..; then
+  echo "No changes to push. Exiting..."
+  exit 1
+fi
+
+# There are changes to push, update releasenotes and version
+echo "There are changes to push."
+
+# Increase version in package.json
+npm version patch --no-git-tag-version
+
+# Update releasenotes.txt with version and commit messages
+echo "## $currentVersion ($currentDate)" >> "$releaseNotesFile"
 echo "$commitMessages" | sed -e 's/^/- /' >> "$releaseNotesFile"
 echo "Updated $releaseNotesFile"
+
+# Add package.json and releasenotes.txt changes to the commit
+git add package.json "$releaseNotesFile"
+
+# Perform any additional tasks here before the push
+# For example:
+# npm run build
+git add .
+git commit -m "Pre-push build"
+echo "Pre-push tasks completed."
 
 # Exit with success
 exit 0
